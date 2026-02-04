@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Aniversário, Vitória! 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .heart {
+            position: fixed;
+            color: #ff6b9d;
+            font-size: 30px;
+            animation: float 6s infinite ease-in-out;
+            opacity: 0.6;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 4em;
+            color: #d63384;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 1.8em;
+            color: #8b4367;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            animation: fadeIn 1.5s ease;
+            border: 3px solid #ff6b9d;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .message-box p {
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #5a3245;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .btn-reveal {
+            background: linear-gradient(45deg, #ff6b9d, #d63384);
+            color: white;
+            border: none;
+            padding: 25px 60px;
+            font-size: 1.8em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(214, 51, 132, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            display: block;
+            margin: 40px auto;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .btn-reveal:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(214, 51, 132, 0.6);
+        }
+
+        .btn-reveal:active {
+            transform: translateY(-2px) scale(1.08);
+        }
+
+        .btn-reveal.clicked {
+            animation: explode 0.8s ease;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3) rotate(10deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .photos-container {
+            display: none;
+            animation: slideIn 1s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .photos-container.show {
+            display: block;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .photo-frame {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: rotate(-2deg);
+            transition: all 0.4s ease;
+            opacity: 0;
+            animation: photoAppear 0.8s ease forwards;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .photo-frame:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.4);
+            z-index: 10;
+        }
+
+        @keyframes photoAppear {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .photo-frame:nth-child(1) { animation-delay: 0.1s; }
+        .photo-frame:nth-child(2) { animation-delay: 0.2s; }
+        .photo-frame:nth-child(3) { animation-delay: 0.3s; }
+        .photo-frame:nth-child(4) { animation-delay: 0.4s; }
+        .photo-frame:nth-child(5) { animation-delay: 0.5s; }
+        .photo-frame:nth-child(6) { animation-delay: 0.6s; }
+
+        .photo-frame img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-caption {
+            padding: 20px;
+            background: linear-gradient(to right, #ff6b9d, #d63384);
+            color: white;
+            text-align: center;
+            font-size: 1.1em;
+            font-style: italic;
+        }
+
+        .final-message {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            border: 3px solid #ff6b9d;
+            display: none;
+            animation: fadeIn 2s ease;
+        }
+
+        .final-message.show {
+            display: block;
+        }
+
+        .final-message h2 {
+            font-size: 2.5em;
+            color: #d63384;
+            margin-bottom: 20px;
+        }
+
+        .final-message p {
+            font-size: 1.5em;
+            color: #5a3245;
+            line-height: 1.8;
+        }
+
+        .signature {
+            font-size: 1.8em;
+            color: #d63384;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+                margin-bottom: 15px;
+            }
+
+            .subtitle {
+                font-size: 1.3em;
+                margin-bottom: 20px;
+                padding: 0 10px;
+            }
+
+            .message-box {
+                padding: 25px 20px;
+                margin-bottom: 30px;
+                border-radius: 15px;
+            }
+
+            .message-box p {
+                font-size: 1.1em;
+                line-height: 1.6;
+                margin-bottom: 12px;
+            }
+
+            .btn-reveal {
+                padding: 18px 40px;
+                font-size: 1.3em;
+                letter-spacing: 2px;
+                margin: 30px auto;
+                width: 90%;
+                max-width: 300px;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 25px;
+                margin-top: 30px;
+                padding: 0;
+            }
+
+            .photo-frame {
+                transform: rotate(0deg) !important;
+                margin: 0 auto;
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .photo-frame:hover {
+                transform: scale(1.02) !important;
+            }
+
+            .photo-frame img {
+                height: 350px;
+                object-fit: cover;
+            }
+
+            .photo-caption {
+                padding: 15px;
+                font-size: 1em;
+            }
+
+            .final-message {
+                margin-top: 40px;
+                padding: 25px 20px;
+                border-radius: 15px;
+            }
+
+            .final-message h2 {
+                font-size: 2em;
+                margin-bottom: 15px;
+            }
+
+            .final-message p {
+                font-size: 1.2em;
+                line-height: 1.6;
+            }
+
+            .signature {
+                font-size: 1.4em;
+                margin-top: 20px;
+            }
+
+            .heart {
+                font-size: 25px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+            }
+
+            .message-box p {
+                font-size: 1em;
+            }
+
+            .btn-reveal {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+
+            .photo-frame img {
+                height: 280px;
+            }
+
+            .final-message h2 {
+                font-size: 1.7em;
+            }
+
+            .final-message p {
+                font-size: 1.1em;
+            }
+
+            .signature {
+                font-size: 1.2em;
+            }
+        }
+
+        /* Ajustes específicos para iPhone */
+        @media screen and (max-width: 430px) {
+            h1 {
+                font-size: 1.8em;
+                line-height: 1.2;
+            }
+
+            .container {
+                padding: 15px 10px;
+            }
+
+            .message-box {
+                padding: 20px 15px;
+            }
+
+            .gallery {
+                gap: 20px;
+            }
+
+            .photo-frame img {
+                height: 300px;
+            }
+        }
+
+        /* Para iPhones muito pequenos */
+        @media screen and (max-width: 375px) {
+            .photo-frame img {
+                height: 250px;
+            }
+
+            .photo-caption {
+                padding: 12px;
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Corações flutuantes -->
+    <div class="heart" style="left: 10%; animation-delay: 0s;">💕</div>
+    <div class="heart" style="left: 25%; animation-delay: 2s;">❤️</div>
+    <div class="heart" style="left: 40%; animation-delay: 4s;">💖</div>
+    <div class="heart" style="left: 55%; animation-delay: 1s;">💗</div>
+    <div class="heart" style="left: 70%; animation-delay: 3s;">💝</div>
+    <div class="heart" style="left: 85%; animation-delay: 5s;">💕</div>
+
+    <div class="container">
+        <header>
+            <h1>🎉 Feliz Aniversário🎂</h1>
+            <div class="subtitle">Meu amor, este dia é todo seu! 💕</div>
+        </header>
+
+        <div class="message-box">
+            <p>💖 Hoje é um dia muito especial...</p>
+            <p>O dia em que a pessoa mais incrível do mundo nasceu!</p>
+            <p>Preparei algo especial para você, meu amor.</p>
+            <p>Cada momento ao seu lado é um presente que guardo no coração. 💕</p>
+        </div>
+
+        <button class="btn-reveal" id="revealBtn">Clique Aqui ✨</button>
+
+        <div class="photos-container" id="photosContainer">
+            <div class="message-box">
+                <p>entao vai tomando as fotona braba 📸</p>
+            </div>
+
+            <div class="gallery">
+                <div class="photo-frame">
+                    <img src="CHORANDO.jpeg" alt="Nosso momento especial">
+                    <div class="photo-caption">chorano 🥹</div>
+                </div>
+
+                <div class="photo-frame">
+                    <img src="dormindo.jpeg" alt="Momento de paz">
+                    <div class="photo-caption">dormino 🛌</div>
+                </div>
+
+                <div class="photo-frame">
+                    <img src="malhand.jpeg" alt="Nosso autocuidado">
+                    <div class="photo-caption">malhano 🏋️‍♀️</div>
+                </div>
+
+                <div class="photo-frame">
+                    <img src="moto.jpeg" alt="Aventuras de moto">
+                    <div class="photo-caption">motano 🛵</div>
+                </div>
+
+                <div class="photo-frame">
+                    <img src="toalha.jpeg" alt="Momentos espontâneos">
+                    <div class="photo-caption">cabelo molhano 💧</div>
+                </div>
+
+                <div class="photo-frame">
+                    <img src="trabalho.jpeg" alt="Sua dedicação">
+                    <div class="photo-caption">trabalhano 💅</div>
+                </div>
+            </div>
+
+            <div class="final-message" id="finalMessage">
+                <h2>Te amo mais que tudo! 💕</h2>
+                <p>Que este novo ano de vida seja repleto de amor, alegrias, realizações e muitos momentos especiais juntos.</p>
+                <p>Obrigado por fazer parte da minha vida e por me fazer tão feliz.</p>
+                <p>Você é e sempre será meu maior presente! 🎁</p>
+                <div class="signature">Com todo meu amor, seu mengão 💖</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const revealBtn = document.getElementById('revealBtn');
+        const photosContainer = document.getElementById('photosContainer');
+        const finalMessage = document.getElementById('finalMessage');
+
+        revealBtn.addEventListener('click', function() {
+            // Animação do botão
+            this.classList.add('clicked');
+            
+            setTimeout(() => {
+                // Esconde o botão
+                this.style.display = 'none';
+                
+                // Mostra as fotos
+                photosContainer.classList.add('show');
+                
+                // Mostra a mensagem final após as fotos aparecerem
+                setTimeout(() => {
+                    finalMessage.classList.add('show');
+                }, 2000);
+            }, 800);
+        });
+
+        // Cria mais corações dinamicamente
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = ['💕', '❤️', '💖', '💗', '💝'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }, 3000);
+    </script>
+</body>
+</html>
